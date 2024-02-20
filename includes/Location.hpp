@@ -1,17 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ServerConfig.cpp                                   :+:      :+:    :+:   */
+/*   Location.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 14:14:43 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/20 14:09:59 by paulorod         ###   ########.fr       */
+/*   Created: 2024/02/20 14:00:17 by paulorod          #+#    #+#             */
+/*   Updated: 2024/02/20 14:00:58 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ServerConfig.hpp"
+#ifndef LOCATION_HPP
+# define LOCATION_HPP
 
-ServerConfig::ServerConfig(){}
+#include "ServerConfig.hpp"
 
-ServerConfig::~ServerConfig() {}
+class Location
+{
+	private:
+		string			_path;
+		ServerConfig	_config;
+	public:
+		Location();
+		~Location();
+};
+
+#endif

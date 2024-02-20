@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:57:59 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/19 16:22:40 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:09:59 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class ConfigException : public std::exception
 	public:
 		virtual const char *what() const throw();
 		const int &getLine() const;
-		ConfigException(const string &message, const int &line = 0);
+		ConfigException(const string &message, const int &line = -1);
 		~ConfigException() throw();
 };
 

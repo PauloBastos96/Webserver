@@ -1,17 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ServerConfig.cpp                                   :+:      :+:    :+:   */
+/*   AHelperFunctions.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 14:14:43 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/20 14:09:59 by paulorod         ###   ########.fr       */
+/*   Created: 2024/02/20 16:11:49 by paulorod          #+#    #+#             */
+/*   Updated: 2024/02/20 16:53:55 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ServerConfig.hpp"
+#ifndef HELPERFUNCTIONS_HPP
+# define HELPERFUNCTIONS_HPP
 
-ServerConfig::ServerConfig(){}
+#include "Server.hpp"
 
-ServerConfig::~ServerConfig() {}
+using std::string;
+
+class AHelperFunctions
+{
+	private:
+		AHelperFunctions(void);
+		virtual ~AHelperFunctions(void) = 0;
+	public:
+		static void	parseHost(const string line, Server &server);
+		static void	parsePort(const string line, Server &server);
+		static void	parseServerName(const string line, Server &server);
+};
+
+#endif

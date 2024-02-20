@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:01:12 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/19 16:21:53 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:10:35 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ ConfigException::ConfigException(const string &message, const int &line): _messa
 {
 	std::stringstream ss;
 	ss << this->_message << " at line " << this->_line;
-	this->_finalMessage = ss.str();
+	if (this->_line == -1)
+		this->_finalMessage = this->_message;
+	else
+		this->_finalMessage = ss.str();
 }
 ConfigException::~ConfigException() throw() {}
 
