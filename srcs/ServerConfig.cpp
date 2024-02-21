@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:14:43 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/21 15:41:35 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:18:46 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,15 @@ map<uint, string>	&ServerConfig::getErrorPage(void)
 const string	&ServerConfig::getMaxClientBodySize(void)
 {
 	return (_maxClientBodySize);
+}
+
+void	ServerConfig::setAutoIndex(const bool &autoindex)
+{
+	_autoIndex = autoindex;
+}
+
+const bool	&ServerConfig::getAutoIndex(void)
+{
+	return (_autoIndex);
 }
 

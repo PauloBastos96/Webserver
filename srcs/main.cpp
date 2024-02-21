@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:28:49 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/21 15:49:56 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:19:49 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ void	parseConfigFile(const string &path, vector<Server> &servers)
 					server.getConfig().setMaxClientBodySize(line.substr(line.find_first_of(" ") + 1));
 				if (line.find("location") != string::npos && line.end()[-1] == '{')
 					AParserFunctions::parseLocation(line, server, line_number, file);
+				if (line.find("autoindex") != string::npos)
+				{
+					string autoindex = line.substr(line.find_first_of(" ") + 1);
+					server.getConfig().setAutoIndex(autoindex == "off" ? false : true);
+				}
 			}
 			if (line.find("}") == string::npos)
 			{
@@ -87,6 +92,7 @@ void	debugDisplayServerConfigs(vector<Server> &servers)
 		}
 		cout << endl;
 		cout << "Max client body size: " << servers[i].getConfig().getMaxClientBodySize() << endl;
+		cout << "Autoindex: " << (servers[i].getConfig().getAutoIndex() ? "on" : "off") << endl;
 		cout << "Locations: " << endl;
 		for (size_t j = 0; j < servers[i].getLocations().size(); j++)
 		{
@@ -110,7 +116,9 @@ void	debugDisplayServerConfigs(vector<Server> &servers)
 			{
 				cout << servers[i].getLocations()[j].getAllowedMethods()[k] << " ";
 			}
-			cout << endl << endl;
+			cout << endl;
+			cout << "	" << "Autoindex: " << (servers[i].getLocations()[j].getConfig().getAutoIndex() ? "on" : "off") << endl;
+			cout << endl;
 		}
 	}
 }

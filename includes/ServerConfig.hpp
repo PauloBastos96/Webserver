@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 14:01:35 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/21 15:42:30 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:10:44 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ class ServerConfig
 		vector<string>		_index;
 		map<uint, string>	_errorPage;
 		string				_maxClientBodySize;
+		bool				_autoIndex;
 	public:
 		ServerConfig();
 		~ServerConfig();
@@ -37,11 +38,13 @@ class ServerConfig
 		vector<string>		&getIndex(void);
 		map<uint, string>	&getErrorPage(void);
 		const string		&getMaxClientBodySize(void);
+		const bool			&getAutoIndex(void);
 
 		void	setRoot(const string &root);
 		void	setIndex(const string &index);
 		void	setErrorPage(const uint &error_code, const string &error_page);
 		void	setMaxClientBodySize(const string &max_client_body_size);
+		void	setAutoIndex(const bool &auto_index);
 };
 
 #endif

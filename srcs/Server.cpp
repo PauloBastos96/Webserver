@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:30:04 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/21 15:42:09 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:17:57 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ Server::Server(void)
 	_config.setRoot(DEFAULT_ROOT);
 	_config.setMaxClientBodySize(DEFAULT_MAX_CLIENT_BODY_SIZE);
 	_config.setIndex(DEFAULT_INDEX);
+	_config.setAutoIndex(string(DEFAULT_AUTOINDEX) == "off" ? false : true);
 }
 
 Server::~Server(void){}

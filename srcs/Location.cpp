@@ -6,13 +6,17 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:46:15 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/21 15:48:05 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:20:40 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Location.hpp"
+#include "../includes/webserver.hpp"
 
-Location::Location(){}
+Location::Location()
+{
+	_config.setAutoIndex(string(DEFAULT_AUTOINDEX) == "off" ? false : true);
+}
 Location::~Location(){}
 
 const string	&Location::getPath(void)

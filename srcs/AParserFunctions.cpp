@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:17:05 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/21 15:55:15 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 16:15:38 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,11 @@ void	AParserFunctions::parseLocation(string line, Server &server, int &line_numb
 			throw ConfigException("Error: Missing closing bracket", line_number - 1);
 		if (line.find("limit_except") != string::npos)
 			parseLimitExcept(line, location);
+		if (line.find("autoindex") != string::npos)
+		{
+			string autoindex = line.substr(line.find_first_of(" ") + 1);
+			location.getConfig().setAutoIndex(autoindex == "off" ? false : true);
+		}
 	}
 	server.getLocations().push_back(location);
 }
