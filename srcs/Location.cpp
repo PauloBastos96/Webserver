@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:46:15 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/20 15:46:26 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:20:35 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,3 +14,18 @@
 
 Location::Location(){}
 Location::~Location(){}
+
+const string	&Location::getPath(void)
+{
+	return (_path);
+}
+
+ServerConfig	&Location::getConfig(void)
+{
+	return (_config);
+}
+
+void	Location::setPath(const string &path)
+{
+	_path = path;
+}

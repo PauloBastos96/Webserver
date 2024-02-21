@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:00:17 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/20 14:00:58 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:37:03 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ class Location
 	public:
 		Location();
 		~Location();
+		
+		const string	&getPath(void);
+		ServerConfig	&getConfig(void);
+
+		void			setPath(const string &path);
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:31:24 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/20 16:52:46 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 13:17:18 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ class Server
 		const int				&getPort(void);
 		const string			&getHost(void);
 		const vector<string>	&getServerName(void);
+		ServerConfig			&getConfig(void);
+		vector<Location>		&getLocations(void);
 
 		void	setHost(const string &host);
 		void	setPort(const int &port);

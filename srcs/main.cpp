@@ -6,13 +6,12 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:28:49 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/20 16:59:01 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:56:47 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/webserver.hpp"
 #include <fstream>
-#include <cstdlib>
 
 void	parseConfigFile(const string &path, vector<Server> &servers)
 {
@@ -26,7 +25,7 @@ void	parseConfigFile(const string &path, vector<Server> &servers)
 	while (std::getline(file, line) && !file.eof())
 	{
 		line_number++;
-		if (line.find("server{") != string::npos)
+		if (line.find("server") != string::npos && line.end()[-1] == '{')
 		{
 			Server server;
 			while (std::getline(file, line) && !file.eof() && line.find("}") == string::npos)
@@ -34,19 +33,79 @@ void	parseConfigFile(const string &path, vector<Server> &servers)
 				line_number++;
 				if (line.find("listen") != string::npos)
 				{
-					AHelperFunctions::parseHost(line, server);
-					AHelperFunctions::parsePort(line, server);
+					AParserFunctions::parseHost(line, server);
+					AParserFunctions::parsePort(line, server);
 				}
 				if (line.find("server_name") != string::npos)
+					AParserFunctions::parseServerName(line, server);
+				if (line.find("root") != string::npos)
+					server.getConfig().setRoot(line.substr(line.find_first_of(" ") + 1));
+				if (line.find("index") != string::npos)
+					AParserFunctions::parseIndex(line, server);
+				if (line.find("error_page") != string::npos)
 				{
-					AHelperFunctions::parseServerName(line, server);
+					if (AParserFunctions::parseErrorPage(line, server))
+						throw ConfigException("Error: Invalid error page directive", line_number);
 				}
+				if (line.find("max_client_body_size") != string::npos)
+					server.getConfig().setMaxClientBodySize(line.substr(line.find_first_of(" ") + 1));
+				if (line.find("location") != string::npos && line.end()[-1] == '{')
+					AParserFunctions::parseLocation(line, server, line_number, file);
 			}
 			if (line.find("}") == string::npos)
 			{
 				throw ConfigException("Error: Missing closing bracket", line_number);
 			}
 			servers.push_back(server);
+		}
+	}
+	file.close();
+}
+
+void	debugDisplayServerConfigs(vector<Server> &servers)
+{
+	for (size_t i = 0; i < servers.size(); i++)
+	{
+		cout << BLUE << "Host " << servers[i].getHost() << ":" << servers[i].getPort() << RESET << endl;
+		cout << "Server name: ";
+		for (size_t j = 0; j < servers[i].getServerName().size() ; j++)
+		{
+			cout << servers[i].getServerName()[j] << " ";
+		}
+		cout << endl;
+		cout << "Root: " << servers[i].getConfig().getRoot() << endl;
+		cout << "Index: ";
+		for (size_t j = 0; j < servers[i].getConfig().getIndex().size(); j++)
+		{
+			cout << servers[i].getConfig().getIndex()[j] << " ";
+		}
+		cout << endl;
+		cout << "Error pages: ";
+		for (std::map<uint, string>::iterator it = servers[i].getConfig().getErrorPage().begin(); it != servers[i].getConfig().getErrorPage().end(); it++)
+		{
+			cout << it->first << "=>" << it->second << " ";
+		}
+		cout << endl;
+		cout << "Max client body size: " << servers[i].getConfig().getMaxClientBodySize() << endl;
+		cout << "Locations: " << endl;
+		for (size_t j = 0; j < servers[i].getLocations().size(); j++)
+		{
+			cout << "	" << servers[i].getLocations()[j].getPath() << endl;
+			cout << "	" << "Root: " << servers[i].getLocations()[j].getConfig().getRoot() << endl;
+			cout << "	" << "Index: ";
+			for (size_t k = 0; k < servers[i].getLocations()[j].getConfig().getIndex().size(); k++)
+			{
+				cout << servers[i].getLocations()[j].getConfig().getIndex()[k];
+			}
+			cout << endl;
+			cout << "	" << "Error pages: ";
+			for (std::map<uint, string>::iterator it = servers[i].getLocations()[j].getConfig().getErrorPage().begin(); it != servers[i].getLocations()[j].getConfig().getErrorPage().end(); it++)
+			{
+				cout << "	" << it->first << " " << it->second << " ";
+			}
+			cout << endl;
+			cout << "	" << "Max client body size: " << servers[i].getLocations()[j].getConfig().getMaxClientBodySize() << endl;
+			cout << endl;
 		}
 	}
 }
@@ -69,6 +128,7 @@ int main(int argc, char **argv)
 		{
 			parseConfigFile(DEFAULT_CONFIG_PATH, servers);
 		}
+		debugDisplayServerConfigs(servers);
 	}
 	catch(const std::exception& e)
 	{
