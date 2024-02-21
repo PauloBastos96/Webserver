@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:31:24 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/21 13:17:18 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:41:46 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ class Server
 	private:
 		string			_host;
 		int				_port;
-		vector<string>	_server_name;
+		vector<string>	_serverName;
 		ServerConfig	_config;
 		vector<Location> _locations;
 	public:

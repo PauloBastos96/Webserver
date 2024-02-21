@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:17:05 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/21 15:18:06 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:55:15 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,21 @@ void	AParserFunctions::parseServerName(const string line, Server &server)
 /// @param server The server object
 void	AParserFunctions::parseIndex(const string line, Server &server)
 {
+	server.getConfig().getIndex().clear();
 	std::stringstream ss(line);
 	string word;
 	while (ss >> word)
 	{
-		if (word != "index" && word != DEFAULT_INDEX)
+		if (word != "index")
 			server.getConfig().setIndex(word);
 	}
 }
 
+/// @brief Parse location block from the config file and add it to the server object
+/// @param line The line from the config file
+/// @param server The server object
+/// @param line_number The starting line number
+/// @param file The config file stream
 void	AParserFunctions::parseLocation(string line, Server &server, int &line_number, std::ifstream &file)
 {
 	Location location;
@@ -102,6 +108,22 @@ void	AParserFunctions::parseLocation(string line, Server &server, int &line_numb
 			location.getConfig().setMaxClientBodySize(line.substr(line.find_first_of(" ") + 1));
 		if (line.find("location") != string::npos && line.end()[-1] == '{')
 			throw ConfigException("Error: Missing closing bracket", line_number - 1);
+		if (line.find("limit_except") != string::npos)
+			parseLimitExcept(line, location);
 	}
 	server.getLocations().push_back(location);
+}
+
+/// @brief Parse the limit_except block from the config file and add it to the location object
+/// @param line The line from the config file
+/// @param location The location object
+void	AParserFunctions::parseLimitExcept(string line, Location &location)
+{
+	std::stringstream ss(line);
+	string word;
+	while (ss >> word)
+	{
+		if (word != "limit_except" && word.find_first_of("{") == string::npos)
+			location.setAllowedMethods(word);
+	}
 }

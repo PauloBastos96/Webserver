@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:11:49 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/21 13:50:45 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:46:26 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ class AParserFunctions
 		static void	parseServerName(const string line, Server &server);
 		static void	parseIndex(const string line, Server &server);
 		static void	parseLocation(string line, Server &server, int &line_number, std::ifstream &file);
-
+		static void	parseLimitExcept(string line, Location &location);
+		
 		template <typename T>
 		static int	parseErrorPage(const string line, T &obj)
 		{

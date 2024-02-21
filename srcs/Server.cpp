@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:30:04 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/21 15:18:31 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:42:09 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	Server::setPort(const int &port)
 }
 void	Server::setServerName(const string &server_name)
 {
-	_server_name.push_back(server_name);
+	_serverName.push_back(server_name);
 }
 
 const int	&Server::getPort(void)
@@ -49,7 +49,7 @@ const string	&Server::getHost(void)
 
 const vector<string>	&Server::getServerName(void)
 {
-	return (_server_name);
+	return (_serverName);
 }
 
 ServerConfig	&Server::getConfig(void)

@@ -6,7 +6,7 @@
 /*   By: paulorod <paulorod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:28:49 by paulorod          #+#    #+#             */
-/*   Updated: 2024/02/21 14:56:47 by paulorod         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:49:56 by paulorod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,12 @@ void	debugDisplayServerConfigs(vector<Server> &servers)
 			}
 			cout << endl;
 			cout << "	" << "Max client body size: " << servers[i].getLocations()[j].getConfig().getMaxClientBodySize() << endl;
-			cout << endl;
+			cout << "	" << "Allowed methods: ";
+			for (size_t k = 0; k < servers[i].getLocations()[j].getAllowedMethods().size(); k++)
+			{
+				cout << servers[i].getLocations()[j].getAllowedMethods()[k] << " ";
+			}
+			cout << endl << endl;
 		}
 	}
 }
